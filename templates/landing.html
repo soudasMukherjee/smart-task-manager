@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TaskFlow - Task Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Geist:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fcf8ff; /* surface color */
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .task-card-glow:hover {
+            box-shadow: 0 10px 15px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-container": "#ffd2be",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-highest": "#e4e1ee",
+                    "surface-container": "#f0ecf9",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed": "#0f0069",
+                    "inverse-on-surface": "#f3effc",
+                    "on-background": "#1b1b24",
+                    "primary-container": "#4f46e5",
+                    "outline": "#777587",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "on-secondary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "secondary": "#006c49",
+                    "secondary-fixed-dim": "#4edea3",
+                    "tertiary": "#7e3000",
+                    "surface": "#fcf8ff",
+                    "surface-tint": "#4d44e3",
+                    "on-tertiary-fixed": "#351000",
+                    "surface-bright": "#fcf8ff",
+                    "on-secondary-fixed": "#002113",
+                    "surface-container-high": "#eae6f4",
+                    "error-container": "#ffdad6",
+                    "inverse-primary": "#c3c0ff",
+                    "error": "#ba1a1a",
+                    "outline-variant": "#c7c4d8",
+                    "primary-fixed": "#e2dfff",
+                    "on-secondary-fixed-variant": "#005236",
+                    "surface-variant": "#e4e1ee",
+                    "tertiary-container": "#a44100",
+                    "on-surface-variant": "#464555",
+                    "secondary-container": "#6cf8bb",
+                    "primary": "#3525cd",
+                    "on-surface": "#1b1b24",
+                    "tertiary-fixed": "#ffdbcc",
+                    "on-secondary-container": "#00714d",
+                    "background": "#fcf8ff",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb695",
+                    "on-error": "#ffffff",
+                    "surface-dim": "#dcd8e5",
+                    "on-primary-container": "#dad7ff",
+                    "surface-container-low": "#f5f2ff",
+                    "inverse-surface": "#302f39",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-tertiary-fixed-variant": "#7b2f00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "3rem",
+                    "container-max": "1280px",
+                    "sm": "1rem",
+                    "xs": "0.5rem",
+                    "md": "1.5rem",
+                    "lg": "2rem",
+                    "base": "4px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Geist"],
+                    "headline-lg": ["Geist"],
+                    "label-md": ["Geist"],
+                    "body-sm": ["Inter"],
+                    "label-sm": ["Geist"],
+                    "body-lg": ["Inter"],
+                    "headline-sm": ["Geist"],
+                    "display-lg": ["Geist"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface mb-20">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface shadow-sm flex items-center justify-between px-md h-16 w-full">
+<div class="flex items-center gap-xs">
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary">TaskFlow</h1>
+</div>
+<div class="flex items-center gap-xs">
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-primary-fixed-dim flex items-center justify-center border border-outline-variant overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional studio portrait of a young project manager with a friendly expression. The lighting is soft and high-key, creating a clean light-mode atmosphere. The background is a soft gradient of indigo and white, matching a modern productivity app's color palette. The aesthetic is focused, reliable, and forward-thinking." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALJYsL-9jH_-qkzkuI58BtxjGLU99eExXJTrRUG82rJZwfCfcex6PUyRE0y2WW3WXV_uHg0DhvYYOw__Shfl7JZy70B5vjthQjgMgcR1e5uCQR9Zz8cK_WywIjo2IxyyaN8zIN2UgjZSbVfhSqly1vEzi-nChoYFTy309N8DPkoFhM6-LVPWGB8NgoMAUHa9wRhIUzJLFjMGV71lCxJqdIGYd4i0fojVcCqtEJksKnwhS5Ut2n737wBFNFZM20WFZLGrgX0n7QxBiV"/>
+</div>
+</div>
+</header>
+<main class="mt-16 p-md max-w-container-max mx-auto">
+<!-- Search and Filter Section -->
+<section class="mb-lg">
+<div class="relative max-w-2xl mx-auto md:mx-0">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-xl font-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all shadow-sm" placeholder="Search tasks, teams, or tags..." type="text"/>
+</div>
+</section>
+<!-- Status Tabs -->
+<section class="mb-md overflow-x-auto no-scrollbar">
+<div class="flex gap-xs min-w-max">
+<button class="px-6 py-2 rounded-full bg-primary text-on-primary font-label-md transition-all active:scale-95">All</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-md hover:bg-surface-container-highest transition-all active:scale-95">Pending</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-md hover:bg-surface-container-highest transition-all active:scale-95">In Progress</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-md hover:bg-surface-container-highest transition-all active:scale-95">Completed</button>
+</div>
+</section>
+<!-- Task Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+<!-- Task Card 1: Urgent -->
+<div class="task-card-glow bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex flex-col gap-sm transition-all relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+<div class="flex justify-between items-start">
+<span class="px-2 py-1 rounded-full bg-error-container text-error font-label-sm uppercase tracking-wider">High</span>
+<button class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<h3 class="font-headline-sm text-on-surface group-hover:text-primary transition-colors">Quarterly Financial Audit</h3>
+<p class="font-body-sm text-on-surface-variant line-clamp-2">Review all department expense reports and reconcile with the master ledger before Friday's board meeting.</p>
+<div class="mt-auto flex items-center justify-between pt-sm border-t border-outline-variant">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-sm">Oct 24, 2023</span>
+</div>
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-surface-container-lowest" data-alt="Close up avatar of a professional designer with glasses, in a bright minimal studio setting with primary indigo accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANaANfdCV9z6Ifh5KpgrAq8Ig3WKk9VKUQaoHGzRSa2j--rk25HTcmAQ0OA-WJFSJ7ijC9c9zqLoVGHphY70ibwefJddB_39gqqAantaz2q3wwFNXRUH9LLjOvrzF3LocQvnCf3z2m2A1SC4HZwqQVzQzG9txk4ukUWiWfFtlagPP5rckJ_i6BLTznAUWnmCOJlZ6Mfiuq9PIiSR0L3t3Xj0ygYMkCQiwmDcua1qAL_p7IXzxm2Qo9S5F7hFzrEf7Fy_0LPLaLejiE"/>
+<img class="w-8 h-8 rounded-full border-2 border-surface-container-lowest" data-alt="Close up avatar of a senior engineer with a confident look, high-key soft lighting and a modern tech-focused background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5DB9jYYUFmlD1ACgbdd5iuqF0lljBI-fpcKePsPYI6G476jZkTg-RmrVQJb-sXhVAeJEcG-Cw6-6YQOfIibiRvQBKDj9oKV0m269x_nUEWlx7FFCczalsX6nT2fpLV4A_Ii5rgxjylikgCMJH1n3NZDFRbc98msLy_469En-anxfib6Zo4Ys4DMl-9hBfKdJsUGB7SEYyQp9oeNCw0cM48DharbDsnbH_U_928nplAWMO_8K0oUugbskmUav81JGkKVISCsZi7omx"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Task Card 2: In Progress -->
+<div class="task-card-glow bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex flex-col gap-sm transition-all relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex justify-between items-start">
+<span class="px-2 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm uppercase tracking-wider">Med</span>
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="sync" style="font-variation-settings: 'wght' 600;">sync</span>
+</div>
+<h3 class="font-headline-sm text-on-surface group-hover:text-primary transition-colors">User Interview Synthesis</h3>
+<div class="w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[65%]"></div>
+</div>
+<p class="font-body-sm text-on-surface-variant">Analyzing feedback from 12 participants regarding the new dashboard navigation flow.</p>
+<div class="mt-auto flex items-center justify-between pt-sm border-t border-outline-variant">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="schedule">schedule</span>
+<span class="font-label-sm">Due in 2 days</span>
+</div>
+<img class="w-8 h-8 rounded-full border-2 border-surface-container-lowest" data-alt="Close up portrait of Alex Morgan, project manager, in a clean, minimalist professional setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdFNX73W4rbNRTsh1-fTUj3ly9FNrGm1FGWT1f0gzVP96HYHgBb59kF1EGdIKJWxoxy6_lqBqDAopMWKcSANHvP6QkL8tLfRvbnGxagVTaqvHdBKasUhwRs98z51lWtDHapyKKH5piniSmOpGemVySuUHqqbNGBzspdQEXL6S_iJBBAjGe6gVzMV_MPkmWpO7IwPEfE9PH9BALw2S1BCawgRU_uDFcQQerh3C4mg4xPnzg973FOfyOxsv1Bj_eN-dDkhCirsBh2ouY"/>
+</div>
+</div>
+<!-- Task Card 3: Completed -->
+<div class="task-card-glow bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex flex-col gap-sm transition-all relative overflow-hidden group opacity-80">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary"></div>
+<div class="flex justify-between items-start">
+<span class="px-2 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm uppercase tracking-wider">Low</span>
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h3 class="font-headline-sm text-on-surface line-through decoration-on-surface-variant">Weekly Team Sync</h3>
+<p class="font-body-sm text-on-surface-variant">Routine check-in to discuss blockers and upcoming milestones for the design system update.</p>
+<div class="mt-auto flex items-center justify-between pt-sm border-t border-outline-variant">
+<div class="flex items-center gap-xs text-secondary">
+<span class="material-symbols-outlined text-[18px]" data-icon="done_all">done_all</span>
+<span class="font-label-sm">Completed</span>
+</div>
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center border-2 border-surface-container-lowest text-[10px] font-bold">+4</div>
+</div>
+</div>
+</div>
+<!-- Task Card 4: New Task Draft -->
+<div class="task-card-glow bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex flex-col gap-sm transition-all relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+<div class="flex justify-between items-start">
+<span class="px-2 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-sm uppercase tracking-wider">Pending</span>
+</div>
+<h3 class="font-headline-sm text-on-surface group-hover:text-primary transition-colors">Refactor API Handlers</h3>
+<p class="font-body-sm text-on-surface-variant">Update the data fetching logic to use the new caching layer for improved performance.</p>
+<div class="mt-auto flex items-center justify-between pt-sm border-t border-outline-variant">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="event">event</span>
+<span class="font-label-sm">No date set</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-outline-variant cursor-pointer hover:text-primary transition-colors" data-icon="person_add">person_add</span>
+</div>
+</div>
+</div>
+<!-- Task Card 5: Large Progress -->
+<div class="task-card-glow bg-primary-container text-on-primary-container border-none rounded-xl p-md flex flex-col gap-sm transition-all relative overflow-hidden lg:col-span-2">
+<div class="flex justify-between items-start">
+<span class="px-3 py-1 rounded-full bg-on-primary text-primary font-label-md uppercase tracking-wider">Active Sprint</span>
+<span class="material-symbols-outlined" data-icon="rocket_launch" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+</div>
+<h3 class="font-display-lg text-[32px] font-bold">V2 Infrastructure Launch</h3>
+<p class="font-body-lg opacity-90 max-w-xl">Final push for the serverless migration. All core services are passing tests. Pending final QA sign-off before Friday rollout.</p>
+<div class="mt-md flex flex-col gap-xs">
+<div class="flex justify-between font-label-md">
+<span>Milestone Progress</span>
+<span>82%</span>
+</div>
+<div class="w-full bg-on-primary/20 h-3 rounded-full overflow-hidden">
+<div class="bg-on-primary h-full w-[82%]"></div>
+</div>
+</div>
+<div class="mt-auto flex items-center justify-between pt-md border-t border-on-primary/10">
+<div class="flex gap-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[20px]" data-icon="task_alt">task_alt</span>
+<span class="font-label-sm">45/52 Tasks</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[20px]" data-icon="group">group</span>
+<span class="font-label-sm">8 Members</span>
+</div>
+</div>
+<button class="bg-on-primary text-primary px-4 py-2 rounded-lg font-label-md shadow-lg active:scale-95 transition-transform">View Details</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed right-6 bottom-24 w-14 h-14 rounded-2xl bg-primary text-on-primary shadow-xl flex items-center justify-center active:scale-90 transition-transform z-50">
+<span class="material-symbols-outlined text-[28px]" data-icon="add">add</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-16 pb-safe px-sm bg-surface shadow-[0_-1px_3px_rgba(0,0,0,0.05)] z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-low transition-colors active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard

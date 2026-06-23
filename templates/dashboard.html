@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TaskFlow Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#301400",
+                    "on-secondary-container": "#00355c",
+                    "surface-dim": "#dbd9e2",
+                    "tertiary-fixed": "#ffdcc6",
+                    "surface-tint": "#4355b9",
+                    "on-primary-fixed": "#00105c",
+                    "on-error": "#ffffff",
+                    "surface-container-low": "#f4f2fc",
+                    "on-secondary-fixed": "#001d36",
+                    "secondary": "#0061a4",
+                    "on-background": "#1a1b22",
+                    "primary-fixed-dim": "#bac3ff",
+                    "on-tertiary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "inverse-surface": "#2f3037",
+                    "surface-container-high": "#e9e7f0",
+                    "on-tertiary-fixed-variant": "#713700",
+                    "inverse-on-surface": "#f2eff9",
+                    "on-secondary": "#ffffff",
+                    "surface": "#fbf8ff",
+                    "primary-fixed": "#dee0ff",
+                    "primary-container": "#3f51b5",
+                    "secondary-container": "#33a0fd",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed-variant": "#293ca0",
+                    "surface-variant": "#e3e1ea",
+                    "on-tertiary-container": "#ffc7a2",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#9ecaff",
+                    "secondary-fixed": "#d1e4ff",
+                    "on-primary": "#ffffff",
+                    "surface-container-highest": "#e3e1ea",
+                    "surface-bright": "#fbf8ff",
+                    "background": "#fbf8ff",
+                    "inverse-primary": "#bac3ff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#1a1b22",
+                    "on-primary-container": "#cacfff",
+                    "on-secondary-fixed-variant": "#00497d",
+                    "primary": "#24389c",
+                    "surface-container": "#efedf6",
+                    "tertiary-container": "#8f4700",
+                    "on-surface-variant": "#454652",
+                    "outline": "#757684",
+                    "tertiary-fixed-dim": "#ffb784",
+                    "outline-variant": "#c5c5d4",
+                    "tertiary": "#6c3400"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "40px",
+                    "base": "4px",
+                    "xl": "48px",
+                    "sm": "16px",
+                    "xs": "8px",
+                    "gutter": "24px",
+                    "lg": "32px",
+                    "margin-mobile": "16px",
+                    "md": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-20">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-surface dark:bg-inverse-surface shadow-sm flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 w-full z-40">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary dark:text-inverse-primary cursor-pointer active:scale-95 transition-transform" data-icon="menu">menu</span>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">TaskFlow</h1>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed active:scale-95 transition-transform">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a young male professional in a modern office environment. The lighting is soft and natural, emphasizing a bright and clean corporate aesthetic. The background is slightly blurred with soft indigo and white tones, matching a high-end enterprise software user interface. The subject has a confident and friendly expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB34l6CoQq0aWiPg-wUJ-O1mKaoMmAe3Bo8DNyMDs6Y9zMEDz8zPojrbejWZH-OYEiNL0NrVUzxVvHkxdA7Asfv-2IxBV79mUD-vMTxqrYwRVNZpIXJ96n3HdSTCX9mPfg5TyUafz38ERSPH_nmCdVVEJ_zaasRckWjzfbJdnmKpzjY7fOXsPXZsPtNaFSKQloUDEE4geyTMRFpu0BSQ-QTXw8ZIwOhDs4OjWxWV-oAWuHd0b746hiQo6PmKDgYWteYjK2ktU3CGLCI"/>
+</div>
+<button id="logoutBtn" class="hidden md:inline-flex font-label-md text-label-md text-primary font-semibold px-3 py-2 rounded-full hover:bg-surface-container-high transition-colors">
+Logout
+</button>
+</header>
+<main class="px-margin-mobile mt-xs flex flex-col gap-lg">
+<!-- Greeting Section -->
+<section class="mt-xs">
+<h2 class="font-headline-lg text-headline-lg text-primary">Hello, Alex!</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Your productivity is up by 12% today.</p>
+</section>
+<!-- Add Task -->
+<section class="bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.04)]">
+<div class="flex items-center justify-between mb-sm">
+<h3 class="font-headline-md text-headline-md">Add Task</h3>
+</div>
+
+<div id="errorBox" class="hidden text-on-error bg-error-container px-3 py-2 rounded-lg mb-sm"></div>
+
+<form id="taskForm" class="flex flex-col gap-sm">
+<input name="title" placeholder="Title" class="w-full px-3 py-2 rounded-lg bg-surface-container-highest border border-outline focus:outline-none focus:ring-2 focus:ring-primary-container" required/>
+<textarea name="description" placeholder="Description" class="w-full px-3 py-2 rounded-lg bg-surface-container-highest border border-outline focus:outline-none focus:ring-2 focus:ring-primary-container"></textarea>
+
+<div class="grid grid-cols-2 gap-xs">
+<select name="priority" class="w-full px-3 py-2 rounded-lg bg-surface-container-highest border border-outline focus:outline-none focus:ring-2 focus:ring-primary-container">
+<option>Low</option>
+<option selected>Medium</option>
+<option>High</option>
+</select>
+
+<select name="status" class="w-full px-3 py-2 rounded-lg bg-surface-container-highest border border-outline focus:outline-none focus:ring-2 focus:ring-primary-container">
+<option>Pending</option>
+<option>In Progress</option>
+<option>Done</option>
+</select>
+</div>
+
+<button class="font-label-md text-label-md bg-primary text-on-primary rounded-lg px-4 py-2 hover:opacity-90 transition-opacity active:scale-95" type="submit">
+Add Task
+</button>
+</form>
+</section>
+
+<!-- Your Tasks -->
+<section class="bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.04)]">
+<div class="flex items-center justify-between mb-sm">
+<h3 class="font-headline-md text-headline-md">Your Tasks</h3>
+</div>
+
+<div class="overflow-x-auto">
+<table class="min-w-full text-left">
+<thead>
+<tr>
+<th class="px-2 py-2 text-on-surface-variant font-label-sm">Title</th>
+<th class="px-2 py-2 text-on-surface-variant font-label-sm">Priority</th>
+<th class="px-2 py-2 text-on-surface-variant font-label-sm">Status</th>
+<th class="px-2 py-2 text-on-surface-variant font-label-sm">Created</th>
+<th class="px-2 py-2 text-on-surface-variant font-label-sm">Actions</th>
+</tr>
+</thead>
+<tbody id="tasksTbody"></tbody>
+</table>
+</div>
+</section>
+
+<!-- Analytics Overview - Bento Grid Style -->
+<section>
+<div class="flex items-center justify-between mb-sm">
+<h3 class="font-headline-md text-headline-md">Analytics Overview</h3>
+<span class="font-label-md text-label-md text-secondary">Real-time data</span>
+</div>
+<div class="grid grid-cols-2 gap-xs">
+<!-- Total Tasks Card -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.04)] border-l-4 border-[#24389c]">
+<span class="material-symbols-outlined text-primary mb-xs" data-icon="assignment">assignment</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Total Tasks</p>
+<p class="font-display-lg text-display-lg text-on-surface" id="totalTasks">0</p>
+</div>
+<!-- Completion % Card -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.04)] flex flex-col items-center justify-center border-l-4 border-[#33a0fd]">
+<div class="relative w-16 h-16 mb-xs">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-highest" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="6"></circle>
+<circle class="text-secondary-container" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175.9" stroke-dashoffset="44" stroke-width="6"></circle>
+</svg>
+<span id="completionPct" class="absolute inset-0 flex items-center justify-center font-label-md text-label-md">0%</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Completion %</p>
+</div>
+<!-- Pending Card -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.04)] border-l-4 border-tertiary">
+<span class="material-symbols-outlined text-tertiary mb-xs" data-icon="pending_actions">pending_actions</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Pending</p>
+<p class="font-display-lg text-display-lg text-on-surface" id="pendingTasks">0</p>
+</div>
+<!-- Completed Card -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.04)] border-l-4 border-primary-container">
+<span class="material-symbols-outlined text-secondary-container mb-xs" data-icon="task_alt">task_alt</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Completed</p>
+<p class="font-display-lg text-display-lg text-on-surface" id="completedTasks">0</p>
+</div>
+</div>
+</section>
+
+<!-- Quick Tasks / Urgent Activities -->
+<section class="flex flex-col gap-sm">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md">Urgent Tasks</h3>
+<button type="button" class="font-label-md text-label-md text-primary font-semibold" onclick="window.location.href='/tasks'">View All</button>
+</div>
+<div class="flex flex-col gap-xs">
+<!-- Task Card 1 -->
+<div class="bg-surface-container-lowest p-sm rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.04)] border-l-8 border-[#ba1a1a] flex items-center justify-between">
+<div class="flex flex-col gap-base">
+<span class="font-label-sm text-label-sm text-error bg-error-container w-fit px-2 rounded-full">High Priority</span>
+<h4 class="font-body-md text-body-md font-semibold text-on-surface">Finalize Q3 Project Report</h4>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-base" data-icon="schedule" style="font-size: 16px;">schedule</span>
+<span class="font-label-sm text-label-sm">Due today, 5:00 PM</span>
+</div>
+</div>
+<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<!-- Task Card 2 -->
+<div class="bg-surface-container-lowest p-sm rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.04)] border-l-8 border-[#6c3400] flex items-center justify-between">
+<div class="flex flex-col gap-base">
+<span class="font-label-sm text-label-sm text-tertiary bg-tertiary-fixed w-fit px-2 rounded-full">Medium Priority</span>
+<h4 class="font-body-md text-body-md font-semibold text-on-surface">Team Sync: Sprint Planning</h4>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-base" data-icon="group" style="font-size: 16px;">group</span>
+<span class="font-label-sm text-label-sm">Tomorrow, 10:00 AM</span>
+</div>
+</div>
+<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<!-- Task Card 3 -->
+<div class="bg-surface-container-lowest p-sm rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.04)] border-l-8 border-secondary-container flex items-center justify-between">
+<div class="flex flex-col gap-base">
+<span class="font-label-sm text-label-sm text-on-secondary-container bg-secondary-fixed w-fit px-2 rounded-full">Normal Priority</span>
+<h4 class="font-body-md text-body-md font-semibold text-on-surface">Update Documentation</h4>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-base" data-icon="description" style="font-size: 16px;">description</span>
+<span class="font-label-sm text-label-sm">Aug 24, 2:00 PM</span>
+</div>
+</div>
+<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+
+<!-- Visual Analytics Teaser (Glassmorphism concept) -->
+<section class="bg-gradient-to-br from-primary-container to-primary rounded-2xl p-md text-on-primary-container shadow-lg mb-4">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-headline-md text-white">Task Momentum</h3>
+<p class="font-label-sm text-label-sm text-primary-fixed opacity-90">Efficiency vs. Workload</p>
+</div>
+<span class="material-symbols-outlined text-white text-3xl" data-icon="trending_up">trending_up</span>
+</div>
+<div class="mt-md h-32 flex items-end gap-2 justify-between">
+<div class="w-full bg-white/20 rounded-t-lg h-2/3"></div>
+<div class="w-full bg-white/40 rounded-t-lg h-1/2"></div>
+<div class="w-full bg-white/20 rounded-t-lg h-3/4"></div>
+<div class="w-full bg-white/60 rounded-t-lg h-full"></div>
+<div class="w-full bg-white/30 rounded-t-lg h-1/3"></div>
+<div class="w-full bg-white/50 rounded-t-lg h-4/5"></div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-16 pb-safe bg-surface dark:bg-inverse-surface shadow-[0_-4px_12px_rgba(0,0,0,0.04)] z-50">
+  <a class="flex flex-col items-center justify-center bg-primary dark:bg-inverse-primary text-on-primary dark:text-inverse-on-primary rounded-full px-5 py-1 active:scale-90 transition-all duration-200" href="/dashboard">
+    <span class="material-symbols-outlined" data-icon="dashboard" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+    <span class="font-label-sm text-label-sm">Dashboard</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1 hover:text-primary dark:hover:text-inverse-primary active:scale-90 transition-all duration-200" href="/my_tasks">
+    <span class="material-symbols-outlined" data-icon="checklist">checklist</span>
+    <span class="font-label-sm text-label-sm">Tasks</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1 hover:text-primary dark:hover:text-inverse-primary active:scale-90 transition-all duration-200" href="#">
+    <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+    <span class="font-label-sm text-label-sm">Alerts</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1 hover:text-primary dark:hover:text-inverse-primary active:scale-90 transition-all duration-200" href="#">
+    <span class="material-symbols-outlined" data-icon="settings">settings</span>
+    <span class="font-label-sm text-label-sm">Settings</span>
+  </a>
+</nav>
+
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+<script src="{{ url_for('static', filename='js/tasks.js') }}"></script>
+<script src="{{ url_for('static', filename='js/websocket.js') }}"></script>
+</body>
+</html>
+<!-- Dashboard (Active) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-5 py-1 active:scale-90 transition-all duration-200" href="/dashboard">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</a>
+<!-- Tasks -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1 hover:text-primary dark:hover:text-inverse-primary active:scale-90 transition-all duration-200" href="/tasks">
+<span class="material-symbols-outlined" data-icon="checklist">checklist</span>
+<span class="font-label-sm text-label-sm">Tasks</span>
+</a>
+<!-- Alerts -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1 hover:text-primary dark:hover:text-inverse-primary active:scale-90 transition-all duration-200" href="/tasks">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="font-label-sm text-label-sm">Alerts</span>
+</a>
+<!-- Settings -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-5 py-1 hover:text-primary dark:hover:text-inverse-primary active:scale-90 transition-all duration-200" href="/dashboard">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</a>
+</nav>
+<!-- Floating Action Button (FAB) -->
+<a href="/tasks" class="fixed bottom-20 right-6 w-14 h-14 bg-primary text-on-primary rounded-2xl shadow-xl flex items-center justify-center active:scale-95 transition-transform z-40">
+<span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
+</a>
+
+<!-- Load existing app scripts (REST + WebSocket logic) -->
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script src="{{ url_for('static', filename='js/tasks.js') }}"></script>
+<script src="{{ url_for('static', filename='js/websocket.js') }}"></script>
+</body></html>
+

@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Register - Smart Task Manager</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+</head>
+<body>
+  <div class="auth-card">
+    <h1>Register</h1>
+    <div id="error" class="error" style="display:none;"></div>
+
+    <form id="registerForm">
+      <input name="username" placeholder="Username" required />
+      <input name="email" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button class="btn btn-primary" type="submit">Create Account</button>
+    </form>
+
+    <p class="muted">Already have an account? <a href="/">Login</a></p>
+  </div>
+
+  <script src="/static/js/auth.js"></script>
+  <script>
+    // Redirect to login on successful registration
+    const registerForm = document.getElementById('registerForm');
+    if (registerForm) {
+      registerForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        try {
+          const form = new FormData(registerForm);
+          const payload = {
+            username: form.get('username'),
+            email: form.get('email'),
+            password: form.get('password')
+          };
+          const res = await fetch('/api/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+            credentials: 'include'
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || 'Registration failed');
+          // Redirect to login on success
+          window.location.href = '/';
+        } catch (err) {
+          document.getElementById('error').textContent = err.message;
+          document.getElementById('error').style.display = 'block';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TaskFlow - User Guide</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#f3effc",
+                        "surface": "#fcf8ff",
+                        "inverse-primary": "#c3c0ff",
+                        "background": "#fcf8ff",
+                        "surface-container-high": "#eae6f4",
+                        "on-tertiary-fixed": "#351000",
+                        "surface-bright": "#fcf8ff",
+                        "secondary": "#006c49",
+                        "on-surface": "#1b1b24",
+                        "tertiary-container": "#a44100",
+                        "secondary-container": "#6cf8bb",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "on-tertiary-container": "#ffd2be",
+                        "surface-dim": "#dcd8e5",
+                        "secondary-fixed": "#6ffbbe",
+                        "primary-fixed": "#e2dfff",
+                        "outline": "#777587",
+                        "surface-container": "#f0ecf9",
+                        "on-background": "#1b1b24",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#e4e1ee",
+                        "surface-variant": "#e4e1ee",
+                        "tertiary-fixed": "#ffdbcc",
+                        "outline-variant": "#c7c4d8",
+                        "on-primary-fixed": "#0f0069",
+                        "tertiary": "#7e3000",
+                        "surface-tint": "#4d44e3",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "primary": "#3525cd",
+                        "on-surface-variant": "#464555",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#4edea3",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-error": "#ffffff",
+                        "primary-container": "#4f46e5",
+                        "on-primary-container": "#dad7ff",
+                        "inverse-surface": "#302f39",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#00714d",
+                        "surface-container-low": "#f5f2ff",
+                        "on-secondary-fixed": "#002113"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "1rem",
+                        "gutter": "24px",
+                        "xl": "3rem",
+                        "xs": "0.5rem",
+                        "lg": "2rem",
+                        "container-max": "1280px",
+                        "base": "4px",
+                        "md": "1.5rem"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Geist"],
+                        "headline-lg": ["Geist"],
+                        "headline-sm": ["Geist"],
+                        "headline-md": ["Geist"],
+                        "label-sm": ["Geist"],
+                        "display-lg": ["Geist"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .step-line::after {
+            content: '';
+            position: absolute;
+            left: 1.25rem;
+            top: 2.5rem;
+            bottom: -0.5rem;
+            width: 2px;
+            background-color: #E5E7EB;
+        }
+        .step-line:last-child::after {
+            display: none;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-inverse-surface shadow-sm flex items-center justify-between px-md h-16">
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant p-2 rounded-full hover:bg-surface-container-high transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed-dim">TaskFlow</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-on-surface-variant p-2 rounded-full hover:bg-surface-container-high transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-label-md">AM</div>
+</div>
+</header>
+<main class="pt-20 px-4 md:px-8 max-w-container-max mx-auto">
+<!-- Hero Section -->
+<section class="relative overflow-hidden rounded-xl mb-12 py-16 px-8 flex flex-col items-center text-center bg-primary-container/10">
+<div class="absolute inset-0 z-0">
+
+</div>
+<div class="relative z-10 max-w-2xl">
+<span class="inline-block px-3 py-1 bg-primary text-on-primary text-label-sm font-label-sm rounded-full mb-4">Welcome</span>
+<h2 class="font-display-lg text-display-lg text-on-background mb-4">Welcome to TaskFlow</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Your Intelligent Efficiency System designed to streamline workflows, enhance team collaboration, and maximize daily productivity with AI-driven insights.</p>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Getting Started Steps -->
+<aside class="lg:col-span-4 flex flex-col gap-6">
+<div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm">
+<h3 class="font-headline-sm text-headline-sm mb-6 text-on-surface">Getting Started</h3>
+<div class="space-y-8">
+<div class="relative flex gap-4 step-line">
+<div class="z-10 w-10 h-10 rounded-full bg-primary flex items-center justify-center flex-shrink-0 text-on-primary font-bold">1</div>
+<div>
+<h4 class="font-label-md text-label-md text-primary mb-1">Monitor KPIs</h4>
+<p class="text-body-sm text-on-surface-variant">View real-time efficiency metrics and team bandwidth on your main dashboard.</p>
+</div>
+</div>
+<div class="relative flex gap-4 step-line">
+<div class="z-10 w-10 h-10 rounded-full bg-surface-container-highest border-2 border-primary flex items-center justify-center flex-shrink-0 text-primary font-bold">2</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface mb-1">Manage Tasks</h4>
+<p class="text-body-sm text-on-surface-variant">Organize assignments using priority levels and automated status tracking.</p>
+</div>
+</div>
+<div class="relative flex gap-4">
+<div class="z-10 w-10 h-10 rounded-full bg-surface-container-highest border-2 border-outline-variant flex items-center justify-center flex-shrink-0 text-on-surface-variant font-bold">3</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface mb-1">AI Voice Creation</h4>
+<p class="text-body-sm text-on-surface-variant">Tap the mic and speak naturally to create tasks instantly without typing.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-secondary-container/20 p-6 rounded-xl border border-secondary/20">
+<h3 class="font-headline-sm text-headline-sm mb-4 text-on-secondary-container flex items-center gap-2">
+<span class="material-symbols-outlined">lightbulb</span> Quick Tips
+                    </h3>
+<ul class="space-y-3">
+<li class="flex gap-2 text-body-sm text-on-surface-variant">
+<span class="text-secondary font-bold">•</span>
+<span>Use <strong>Shift + N</strong> to quickly open the new task creator.</span>
+</li>
+<li class="flex gap-2 text-body-sm text-on-surface-variant">
+<span class="text-secondary font-bold">•</span>
+<span>Swipe right on any task card to mark it as complete.</span>
+</li>
+<li class="flex gap-2 text-body-sm text-on-surface-variant">
+<span class="text-secondary font-bold">•</span>
+<span>Filter reports by <strong>'Last 7 Days'</strong> for better momentum tracking.</span>
+</li>
+</ul>
+</div>
+</aside>
+<!-- Right Column: Feature Explanations (Bento Grid Style) -->
+<div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Dashboard Overview -->
+<div class="md:col-span-2 group relative overflow-hidden bg-white border border-outline-variant rounded-xl shadow-sm hover:shadow-lg transition-all duration-300">
+<div class="p-8 flex flex-col md:flex-row gap-6 items-center">
+<div class="w-full md:w-1/2">
+<div class="flex items-center gap-3 mb-4">
+<div class="p-2 bg-primary/10 rounded-lg text-primary">
+<span class="material-symbols-outlined">dashboard</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Dashboard Overview</h3>
+</div>
+<p class="text-body-md text-on-surface-variant mb-4">Your mission control. The dashboard provides a high-level view of your current workload, pending deadlines, and team activity feeds. Keep an eye on the "Productivity Index" to see your efficiency trends over time.</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-surface-container-highest text-label-sm rounded">KPI Tracking</span>
+<span class="px-2 py-1 bg-surface-container-highest text-label-sm rounded">Activity Feeds</span>
+</div>
+</div>
+<div class="w-full md:w-1/2 aspect-video rounded-lg overflow-hidden border border-outline-variant/50">
+<img class="w-full h-full object-cover" data-alt="A clean and modern digital dashboard interface shown on a high-resolution screen. The interface features elegant data visualization charts, progress rings in indigo and emerald, and a streamlined activity feed. The background workspace is a minimalist, brightly lit home office with soft morning light, reflecting a focused and organized professional environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASL0eC6NlzvbO350Ogpy3WtRSXcwWJZ52P6Pjx1BFsjtJPdGPARQQ_AwJc4wW3fB8Wq1MXDqllB6dzCbm-fW8jMxPC3P8sYKoiKv_kctJzqX0QSStBCYGQznbzE9RYtNswppNnyt5QgeH9OssOh_gyNjGLkGzzG7y8LyhfC7iAu8bv3tGXzoQjPCwgOiGmcPPa3b9OJdF1XlEO1BkCgLTJDg_HEXzGvWPzqWtYI89JRdxbfYVipL8EtXQtDb3KnLG9e5FA4qt1BrPm"/>
+</div>
+</div>
+</div>
+<!-- Task Management -->
+<div class="bg-white border border-outline-variant rounded-xl p-6 shadow-sm hover:border-primary/30 transition-colors">
+<div class="p-2 bg-secondary/10 rounded-lg text-secondary w-fit mb-4">
+<span class="material-symbols-outlined">checklist</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-2">Task Management</h3>
+<p class="text-body-sm text-on-surface-variant mb-4">Assign tasks with distinct priority levels: Critical, High, Medium, and Low. Use status tags to communicate progress—from "Backlog" to "Deployed".</p>
+<div class="h-24 bg-surface-container-low rounded-lg p-3 space-y-2">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-error"></div>
+<div class="h-2 w-3/4 bg-outline-variant rounded"></div>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-secondary"></div>
+<div class="h-2 w-1/2 bg-outline-variant rounded"></div>
+</div>
+</div>
+</div>
+<!-- AI Voice Assistant -->
+<div class="bg-white border border-outline-variant rounded-xl p-6 shadow-sm hover:border-primary/30 transition-colors">
+<div class="p-2 bg-primary/10 rounded-lg text-primary w-fit mb-4">
+<span class="material-symbols-outlined">mic</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-2">AI Voice Assistant</h3>
+<p class="text-body-sm text-on-surface-variant mb-4">Simply say "Remind me to review the Q4 budget tomorrow at 9 AM" and TaskFlow will parse the context, set the deadline, and category automatically.</p>
+<div class="mt-2 flex items-center justify-center h-20">
+<div class="flex gap-1 items-end h-8">
+<div class="w-1 bg-primary rounded-full animate-bounce" style="height: 40%; animation-delay: 0.1s"></div>
+<div class="w-1 bg-primary rounded-full animate-bounce" style="height: 80%; animation-delay: 0.2s"></div>
+<div class="w-1 bg-primary rounded-full animate-bounce" style="height: 60%; animation-delay: 0.3s"></div>
+<div class="w-1 bg-primary rounded-full animate-bounce" style="height: 100%; animation-delay: 0.4s"></div>
+<div class="w-1 bg-primary rounded-full animate-bounce" style="height: 50%; animation-delay: 0.5s"></div>
+</div>
+</div>
+</div>
+<!-- Team Analytics -->
+<div class="md:col-span-2 bg-inverse-surface text-surface rounded-xl p-8 overflow-hidden relative group">
+<div class="absolute right-0 top-0 w-1/3 h-full opacity-10 group-hover:opacity-20 transition-opacity">
+
+</div>
+<div class="relative z-10 md:w-2/3">
+<div class="flex items-center gap-3 mb-4">
+<div class="p-2 bg-primary/20 rounded-lg text-primary-fixed-dim">
+<span class="material-symbols-outlined">insights</span>
+</div>
+<h3 class="font-headline-md text-headline-md">Advanced Team Analytics</h3>
+</div>
+<p class="text-body-md text-outline-variant mb-6">Dive deep into productivity reports. Understand where time is being spent, identify bottlenecks in your workflow, and export high-fidelity reports for stakeholders in one click.</p>
+<button class="px-6 py-2 bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary/90 transition-colors">View Sample Report</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Support/FAQ Footer Section -->
+<section class="mt-20 py-12 border-t border-outline-variant text-center">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Still need help?</h3>
+<p class="text-body-md text-on-surface-variant mb-8">Our support team is available 24/7 to help you get the most out of TaskFlow.</p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<a class="flex items-center justify-center gap-2 px-8 py-3 bg-white border border-outline-variant rounded-lg font-label-md hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined text-primary">contact_support</span>
+                    Contact Support
+                </a>
+<a class="flex items-center justify-center gap-2 px-8 py-3 bg-white border border-outline-variant rounded-lg font-label-md hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined text-primary">menu_book</span>
+                    Browse Full FAQ
+                </a>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only Logic) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center h-16 pb-safe px-sm bg-surface dark:bg-inverse-surface shadow-[0_-1px_3px_rgba(0,0,0,0.05)] z-50">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined">checklist</span>
+<span class="font-label-sm text-label-sm">Tasks</span>
+</div>
+<!-- Active Tab: Help/Guide (Mapping to Insights/Analytics for Demo context) -->
+<div class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-xl px-4 py-1 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">help_center</span>
+<span class="font-label-sm text-label-sm">Guide</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-sm text-label-sm">Users</span>
+</div>
+</nav>
+<!-- FAB (Suppressed as per rules for Details/Settings/Transactional screens, but arguably helpful on a Guide page. For consistency with suppression rule, we omit) -->
+<script>
+        // Micro-interaction for steps
+        document.querySelectorAll('.step-line').forEach(step => {
+            step.addEventListener('mouseenter', () => {
+                step.querySelector('div:first-child').classList.add('scale-110');
+            });
+            step.addEventListener('mouseleave', () => {
+                step.querySelector('div:first-child').classList.remove('scale-110');
+            });
+        });
+    </script>
+</body></html>
